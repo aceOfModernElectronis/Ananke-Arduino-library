@@ -1,0 +1,27 @@
+#######################################
+# Syntax Coloring Map For Ananke
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Ananke	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+connectWifi 	KEYWORD2
+connectAnanke 	KEYWORD2
+subscribeAnanke 	KEYWORD2
+unsubscribeAnanke 	KEYWORD2
+publishAnanke 	KEYWORD2
+AnankeLoop 	KEYWORD2
+disconnectAnanke 	KEYWORD2
+connectedAnanke 	KEYWORD2
+setCallback	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
