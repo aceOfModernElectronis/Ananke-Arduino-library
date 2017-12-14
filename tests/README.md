@@ -1,6 +1,6 @@
 # Arduino Client for MQTT Test Suite
 
-This is a regression test suite for the `PubSubClient` library.
+This is a regression test suite for the `Ananke` library.
 
 There are two parts:
 
