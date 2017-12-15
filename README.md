@@ -8,7 +8,7 @@ Ananke is developed by Effective Solutions Pvt Ltd as an end to end cloud based 
 
 # Ananke-Arduino-library
 This library provides a client for doing simple publish/subscribe messaging with
-a server that supports MQTT. A full API document is given in the API documentation 
+Ananke IOT platform that supports MQTT. A full API document is given in the API documentation 
 of Ananke Arduino Library.txt file
 
 ## Examples
