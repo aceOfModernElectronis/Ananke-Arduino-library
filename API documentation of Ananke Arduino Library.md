@@ -126,22 +126,27 @@ Returns,
 The following configuration options can be used to configure the library. They are contained in tests/src/lib/PubSubClient.h.
 
  - MQTT_MAX_PACKET_SIZE
+ 
 Sets the largest packet size, in bytes, the client will handle. Any packet received that exceeds this size will be ignored.
 Default: 128 bytes
 
  - MQTT_KEEPALIVE 
+ 
 Sets the keepalive interval, in seconds, the client will use. This is used to maintain the connection when no other packets are being sent or received.
 Default: 15 seconds
 
  - MQTT_VERSION 
+ 
 Sets the version of the MQTT protocol to use.
 Default: MQTT 3.1.1
 
  - MQTT_MAX_TRANSFER_SIZE
+ 
 Sets the maximum number of bytes passed to the network client in each write call. Some hardware has a limit to how much data can be passed to them in one go, such as the Arduino Wifi Shield.
 Default: undefined (complete packet passed in each write call)
 
  - MQTT_SOCKET_TIMEOUT
+ 
 Sets the timeout when reading from the network. This also applies as the timeout for calls to connect.
 Default: 15 seconds
 
