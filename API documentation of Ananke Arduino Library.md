@@ -26,10 +26,12 @@ Before it can be used, the server details must be configured:
 WiFiClient espClient;
 Ananke client(espClient);
 
+```
 void setup() {
    client.connectAnanke("<device ID>",”<Username>”,”<Password>”);
    // client is now ready for use
 }
+```
  
 Parameters,
  - client : an instance of Client, typically WiFiClient.
@@ -148,7 +150,7 @@ Default: undefined (complete packet passed in each write call)
  - MQTT_SOCKET_TIMEOUT
  
 Sets the timeout when reading from the network. This also applies as the timeout for calls to connect.
-Default: 15 seconds
+Default: 60 seconds
 
 ## Subscription Callback
 
