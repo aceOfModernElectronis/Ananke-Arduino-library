@@ -7,13 +7,12 @@ Ananke is developed by Effective Solutions Pvt Ltd as an end to end cloud based 
  - SDK availability for Raspberry Pi, Arduino and other iot enabled developer kits
 
 # Ananke-Arduino-library
-This library provides a client for doing simple publish/subscribe messaging with
-Ananke IOT platform that supports MQTT. A full API document is given in the API documentation 
-of Ananke Arduino Library.txt file
+This SDK connects Arduino to Ananke IoT platform using MQTT. A full API document is given in the API documentation 
+of Ananke Arduino Library.md file
 
 ## Examples
 
-The library comes with a one example sketch. See File > Examples > Ananke
+The library comes with one example sketch. See File > Examples > Ananke
 within the Arduino application.
 
 ## Limitations
