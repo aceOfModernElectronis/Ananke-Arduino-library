@@ -21,7 +21,7 @@
 
 ## Ananke (client)
 Ananke (client)
-Creates a partially initialised client instance.
+creates a partially initialised client instance.
 Before it can be used, the server details must be configured:
 WiFiClient espClient;
 Ananke client(espClient);
@@ -97,7 +97,7 @@ Returns,
  - false - sending the unsubscribe failed, either connection lost, or message too large.
  - true - sending the unsubscribe succeeded. The request completes asynchronously
 
-## Boolean AnankeLoop ()
+## boolean AnankeLoop ()
 This should be called regularly to allow the client to process incoming messages and maintain its connection to the server.
 
 Returns,
