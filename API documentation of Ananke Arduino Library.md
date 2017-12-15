@@ -30,7 +30,8 @@ void setup() {
    client.connectAnanke("<device ID>",”<Username>”,”<Password>”);
    // client is now ready for use
 }
-Parameters
+ 
+Parameters,
  - client : an instance of Client, typically WiFiClient.
 
 
@@ -38,11 +39,13 @@ Parameters
 
 ## boolean connectAnanke (deviceID, username, password)
 Connects the device with a username and password specified.
-Parameters
+
+Parameters,
  - deviceID : the device ID to use when connecting to the Ananke.(given by Ananke)
  - username : the Ananke accounts username to use. If NULL, no username or password is used (const char[])
  - password : the Ananke accounts password to use. If NULL, no password is used (const char[])
-Returns
+ 
+Returns,
  - false - connection failed.
  - true - connection succeeded.
 
@@ -52,18 +55,21 @@ Disconnects the client.
 
 ## int publishAnanke (appID, groupID, deviceID, payload)
 Publishes a string message to the specified topic.
-Parameters
+
+Parameters,
  - appID - the application ID to publish to (const char[])
  - groupID - the group ID to publish to (const char[])
  - deviceID - the device ID of the device to publish to (const char[])
  - payload - the message to publish (const char[])
-Returns
+ 
+Returns,
  - false - publish failed, either connection lost, or message too large
  - true - publish succeeded
 
 ## boolean subscribeAnanke (appID, groupID, deviceID,qos)
 Subscribes to messages published to the specified topic.
-Parameters
+
+Parameters,
  - appID - the application ID to subscribe to (const char[])
  - groupID - the group ID to subscribe to (const char[])
  - deviceID - the device ID of the device to subscribe to (const char[])
@@ -72,37 +78,44 @@ Parameters
         QoS 1 :- This method guarantees that the message will be transferred successfully to the broker.
 The broker sends an acknowledgement back to the sender, but in the event that that the acknowledgement is lost the sender won't realise the message has got through, so will send the message again. The client will re-send until it gets the broker's acknowledgement.
 This means that sending is guaranteed, although the message may reach the broker more than once. 
-Returns
+
+Returns,
  - false - sending the subscribe failed, either connection lost, or message too large.
  - true - sending the subscribe succeeded. The request completes asynchronously.
 
 ## boolean unsubscribeAnanke (appID, groupID, deviceID)
 Unsubscribes from the specified topic.
-Parameters
+
+Parameters,
  - appID - the application ID to unsubscribe to (const char[])
  - groupID - the group ID to unsubscribe to (const char[])
  - deviceID - the device ID of the device to unsubscribe to (const char[])
-Returns
+ 
+Returns,
  - false - sending the unsubscribe failed, either connection lost, or message too large.
  - true - sending the unsubscribe succeeded. The request completes asynchronously
 
 ## Boolean AnankeLoop ()
 This should be called regularly to allow the client to process incoming messages and maintain its connection to the server.
-Returns
+
+Returns,
  - false - the client is no longer connected
  - true - the client is still connected
 
 ## int connectedAnanke ()
 Checks whether the client is connected to the server.
-Returns
+
+Returns,
  - false - the client is no longer connected
  - true - the client is still connected
 
 ## Ananke setCallback (callback)
 Sets the message callback function.
-Parameters
+
+Parameters,
  - callback : a pointer to a message callback function called when a message arrives for a subscription created by this client.
-Returns
+ 
+Returns,
  - Ananke - the client instance, allowing the function to be chained
 
 
@@ -139,7 +152,7 @@ The callback function has the following signature:
 
 void callback(const char[] topic, byte* payload, unsigned int length)
 
-Parameters
+Parameters,
  - topic - the topic the message arrived on (const char[])
  - payload - the message payload (byte array)
  - length - the length of the message payload (unsigned int)
