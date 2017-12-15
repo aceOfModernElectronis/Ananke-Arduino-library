@@ -18,6 +18,7 @@ Other
 
 ************************************************************************************************************************************
 Constructors
+
 * Ananke (client)
 Ananke (client)
 Creates a partially initialised client instance.
@@ -31,7 +32,10 @@ void setup() {
 }
 Parameters
 1. client : an instance of Client, typically WiFiClient.
+
+
 Functions
+
 * boolean connectAnanke (deviceID, username, password)
 Connects the device with a username and password specified.
 Parameters
@@ -45,6 +49,7 @@ Returns
 
 * void disconnectAnanke ()
 Disconnects the client.
+
 * int publishAnanke (appID, groupID, deviceID, payload)
 Publishes a string message to the specified topic.
 Parameters
@@ -55,8 +60,6 @@ Parameters
 Returns
 1. false - publish failed, either connection lost, or message too large
 2. true - publish succeeded
-
-
 
 * boolean subscribeAnanke (appID, groupID, deviceID,qos)
 Subscribes to messages published to the specified topic.
@@ -73,8 +76,6 @@ Returns
 1. false - sending the subscribe failed, either connection lost, or message too large.
 2. true - sending the subscribe succeeded. The request completes asynchronously.
 
-
-
 * boolean unsubscribeAnanke (appID, groupID, deviceID)
 Unsubscribes from the specified topic.
 Parameters
@@ -85,21 +86,17 @@ Returns
 1. false - sending the unsubscribe failed, either connection lost, or message too large.
 2. true - sending the unsubscribe succeeded. The request completes asynchronously
 
-
-
 * Boolean AnankeLoop ()
 This should be called regularly to allow the client to process incoming messages and maintain its connection to the server.
 Returns
 1. false - the client is no longer connected
 2. true - the client is still connected
 
-
 * int connectedAnanke ()
 Checks whether the client is connected to the server.
 Returns
 1. false - the client is no longer connected
 2. true - the client is still connected
-
 
 * Ananke setCallback (callback)
 Sets the message callback function.
