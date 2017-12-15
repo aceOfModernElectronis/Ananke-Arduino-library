@@ -74,10 +74,10 @@ Parameters,
  - groupID - the group ID to subscribe to (const char[])
  - deviceID - the device ID of the device to subscribe to (const char[])
  - QoS - Quality of Service you want (only 0 and 1 are possible)
+ 
         QoS 0 :- This is the simplest, lowest-overhead method of sending a message. The client    simply publishes the message, and there is no acknowledgement by the broker.
-        QoS 1 :- This method guarantees that the message will be transferred successfully to the broker.
-The broker sends an acknowledgement back to the sender, but in the event that that the acknowledgement is lost the sender won't realise the message has got through, so will send the message again. The client will re-send until it gets the broker's acknowledgement.
-This means that sending is guaranteed, although the message may reach the broker more than once. 
+        
+        QoS 1 :- This method guarantees that the message will be transferred successfully to the broker.The broker sends an acknowledgement back to the sender, but in the event that that the acknowledgement is lost the sender won't realise the message has got through, so will send the message again. The client will re-send until it gets the broker's acknowledgement.This means that sending is guaranteed, although the message may reach the broker more than once. 
 
 Returns,
  - false - sending the subscribe failed, either connection lost, or message too large.
@@ -129,11 +129,11 @@ The following configuration options can be used to configure the library. They a
 Sets the largest packet size, in bytes, the client will handle. Any packet received that exceeds this size will be ignored.
 Default: 128 bytes
 
- - MQTT_KEEPALIVE
+ - MQTT_KEEPALIVE 
 Sets the keepalive interval, in seconds, the client will use. This is used to maintain the connection when no other packets are being sent or received.
 Default: 15 seconds
 
- - MQTT_VERSION
+ - MQTT_VERSION 
 Sets the version of the MQTT protocol to use.
 Default: MQTT 3.1.1
 
