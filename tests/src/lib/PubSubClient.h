@@ -75,9 +75,9 @@
 
 #ifdef ESP8266
 #include <functional>
-#define MQTT_CALLBACK_SIGNATURE std::function<void(char*, uint8_t*, uint32_t)> callback
+#define MQTT_CALLBACK_SIGNATURE std::function<void(char*, uint8_t*, uint32_t)> onMessage
 #else
-#define MQTT_CALLBACK_SIGNATURE void (*callback)(char*, uint8_t*, uint32_t)
+#define MQTT_CALLBACK_SIGNATURE void (*onMessage)(char*, uint8_t*, uint32_t)
 #endif
 
 class PubSubClient {
