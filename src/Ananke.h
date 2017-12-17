@@ -20,19 +20,24 @@ class Ananke {
 private:
 	PubSubClient* client;
 	WiFiClient espClient;
+	const char* deviceIdIn;
+	const char* appIdIn;
+	const char* groupIdIn;
+	const char* usernameIn;
+	const char* passwordIn;
    
 public:
     
 	Ananke();
-    void connectWifi(const char* ssid, const char* password );
-	boolean connectAnanke(const char* deviceId, const char* username, const char* password );
-	boolean subscribeAnanke(const char* appId, const char* groupId, const char* deviceId, uint8_t qos );
-	boolean unsubscribeAnanke(const char* appId, const char* groupId, const char* deviceId );
-	boolean publishAnanke(const char* appId, const char* groupId, const char* deviceId, const char* payload );
-	boolean AnankeLoop();
-	void disconnectAnanke();
-	boolean connectedAnanke();
-	void setCallback(MQTT_CALLBACK_SIGNATURE);
+    	void connectWifi(const char* ssid, const char* wifiPassword );
+	boolean begin(const char*appId, const char* groupId, const char* deviceId, const char* username, const char* password );
+	boolean subscribeAnanke(uint8_t qos );
+	//boolean unsubscribeAnanke();
+	boolean sendMessage(const char* message );
+	boolean Loop();
+	void stop();
+	boolean isConnected();
+	void setOnMessage(MQTT_CALLBACK_SIGNATURE);
    
 };
 
