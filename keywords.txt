@@ -13,14 +13,14 @@ Ananke	KEYWORD1
 #######################################
 
 connectWifi 	KEYWORD2
-connectAnanke 	KEYWORD2
+begin 	KEYWORD2
 subscribeAnanke 	KEYWORD2
 unsubscribeAnanke 	KEYWORD2
-publishAnanke 	KEYWORD2
-AnankeLoop 	KEYWORD2
-disconnectAnanke 	KEYWORD2
-connectedAnanke 	KEYWORD2
-setCallback	KEYWORD2
+sendMessage 	KEYWORD2
+Loop 	KEYWORD2
+stop 	KEYWORD2
+isConnected 	KEYWORD2
+onMessage	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
