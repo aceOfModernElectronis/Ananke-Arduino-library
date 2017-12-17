@@ -13,14 +13,14 @@
 Ananke::Ananke() {
 	client = new PubSubClient(espClient);
 }
-void Ananke::connectWifi(const char* ssid, const char* password ) {
+void Ananke::connectWifi(const char* ssid, const char* wifiPassword ) {
 	
 	delay(10);
 	Serial.println();
 	Serial.print("Connecting to ");
 	Serial.println(ssid);
 	Serial.println(WiFi.status());
-	WiFi.begin(ssid, password);
+	WiFi.begin(ssid, wifiPassword);
 
 	while (WiFi.status() != WL_CONNECTED) {
 		
@@ -35,66 +35,73 @@ void Ananke::connectWifi(const char* ssid, const char* password ) {
 	
 }
 
-boolean Ananke::connectAnanke(const char* deviceId, const char* username, const char* password ) {
+boolean Ananke::begin(const char* appId, const char* groupId, const char* deviceId, const char* username, const char* password ) {
+	
+	deviceIdIn = deviceId;
+	appIdIn = appId;
+	groupIdIn = groupId;
+	usernameIn = username;
+	passwordIn = password;
+	
 	(this->client)->setServer("138.197.92.157", 1883);
 	while (!(this->client)->connected()) {
 	Serial.print("Attempting MQTT connection...");
-	if ((this->client)->connect(deviceId,username,password)) {
-		Serial.println("connected");
-		//(this->client)->publish("a4395340/g6598292/d6370259/PUB", "{'doorAlarm' : '1'}");
-        //(this->client)->subscribe("a4395340/g6598292/d6370259/SUB");
-		return true;
-	} else {
-		Serial.print("failed, rc=");
-		Serial.print((this->client)->state());
-		Serial.println(" try again in 5 seconds");
-		delay(5000);
+		if ((this->client)->connect(deviceId,username,password)) {
+			Serial.println("connected");
+			return true;
+		} else {
+			Serial.print("failed, rc=");
+			Serial.print((this->client)->state());
+			Serial.println(" try again in 5 seconds");
+			delay(5000);
 	}
   }
   
 }
 
-boolean Ananke::subscribeAnanke(const char* appId, const char* groupId, const char* deviceId, uint8_t qos ) {
-	String str=String(appId)+"/"+String(groupId)+"/"+String(deviceId) +"/"+"SUB";
+boolean Ananke::subscribeAnanke(uint8_t qos ) {
+	String str=String(appIdIn)+"/"+String(groupIdIn)+"/"+String(deviceIdIn) +"/"+"SUB";
+	Serial.println("Subscribed");
+	Serial.println(str);
 	char chr[str.length()+1];
 	str.toCharArray(chr,str.length()+1);
 	return (this->client)->subscribe(chr,qos);
 	
 }
 
-boolean Ananke::unsubscribeAnanke(const char* appId, const char* groupId, const char* deviceId ) {
-	String str=String(appId)+"/"+String(groupId)+"/"+String(deviceId) +"/"+"SUB";
+// boolean Ananke::unsubscribeAnanke() {
+	// String str=String(appIdIn)+"/"+String(groupIdIn)+"/"+String(deviceIdIn) +"/"+"SUB";
+	// char chr[str.length()+1];
+	// str.toCharArray(chr,str.length()+1);
+	// return (this->client)->unsubscribe(chr);
+	
+// }
+
+boolean Ananke::sendMessage(const char* message ) {
+	String str=String(appIdIn)+"/"+String(groupIdIn)+"/"+String(deviceIdIn) +"/"+"PUB";
 	char chr[str.length()+1];
 	str.toCharArray(chr,str.length()+1);
-	return (this->client)->unsubscribe(chr);
+	return (this->client)->publish(chr,message);
 	
 }
 
-boolean Ananke::publishAnanke(const char* appId, const char* groupId, const char* deviceId, const char* payload ) {
-	String str=String(appId)+"/"+String(groupId)+"/"+String(deviceId) +"/"+"PUB";
-	char chr[str.length()+1];
-	str.toCharArray(chr,str.length()+1);
-	return (this->client)->publish(chr,payload);
-	
-}
-
-void Ananke::disconnectAnanke() {
+void Ananke::stop() {
     
 	(this->client)->disconnect();
 	
 }
 
-boolean Ananke::connectedAnanke(){
+boolean Ananke::isConnected(){
 	
 	return (this->client)->connected();
 	
 }
-boolean Ananke::AnankeLoop(){
+boolean Ananke::Loop(){
 	
 	return (this->client)->loop();
 	
 }
-void Ananke::setCallback(MQTT_CALLBACK_SIGNATURE) {
+void Ananke::setOnMessage(MQTT_CALLBACK_SIGNATURE) {
 	
 	(this->client)->setCallback(callback);
 	
