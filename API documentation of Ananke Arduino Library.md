@@ -3,17 +3,17 @@
 ## Constructors
  - Ananke (client)
 ## Functions
- - boolean connectAnanke (deviceID, username, password)
- - void disconnectAnanke ()
- - int publishAnanke (appID, groupID, deviceID, payload)
- - boolean subscribeAnanke (appID, groupID, deviceID,qos)
+ - boolean begin(appId, groupId, deviceId, username, password)
+ - void stop()
+ - boolean sendMessage(message)
+ - boolean subscribeAnanke (qos)
  - boolean unsubscribeAnanke (appID, groupID, deviceID)
- - Boolean AnankeLoop ()
- - int connectedAnanke ()
- - Ananke setCallback (callback)
+ - Boolean Loop ()
+ - int isConnected ()
+ - Ananke setOnMessage(onMessage);
 ## Other
  - Configuration Options
- - Subscription Callback
+ - Subscription onMessage
 
 
 ************************************************************************************************************************************
@@ -39,10 +39,12 @@ Parameters,
 
 # Functions
 
-## boolean connectAnanke (deviceID, username, password)
+## boolean begin(appId, groupId, deviceId, username, password)
 Connects the device with a username and password specified.
 
 Parameters,
+ - appID - the application ID to publish to (const char[])
+ - groupID - the group ID to publish to (const char[])
  - deviceID : the device ID to use when connecting to the Ananke.(given by Ananke)
  - username : the Ananke accounts username to use. If NULL, no username or password is used (const char[])
  - password : the Ananke accounts password to use. If NULL, no password is used (const char[])
@@ -52,23 +54,20 @@ Returns,
  - true - connection succeeded.
 
 
-## void disconnectAnanke ()
+## void stop ()
 Disconnects the client.
 
-## int publishAnanke (appID, groupID, deviceID, payload)
+## int sendMessage( message );
 Publishes a string message to the specified topic.
 
 Parameters,
- - appID - the application ID to publish to (const char[])
- - groupID - the group ID to publish to (const char[])
- - deviceID - the device ID of the device to publish to (const char[])
- - payload - the message to publish (const char[])
+ - message - the message to publish (const char[])
  
 Returns,
  - false - publish failed, either connection lost, or message too large
  - true - publish succeeded
 
-## boolean subscribeAnanke (appID, groupID, deviceID,qos)
+## boolean subscribeAnanke (qos)
 Subscribes to messages published to the specified topic.
 
 Parameters,
@@ -97,25 +96,25 @@ Returns,
  - false - sending the unsubscribe failed, either connection lost, or message too large.
  - true - sending the unsubscribe succeeded. The request completes asynchronously
 
-## boolean AnankeLoop ()
+## boolean Loop ()
 This should be called regularly to allow the client to process incoming messages and maintain its connection to the server.
 
 Returns,
  - false - the client is no longer connected
  - true - the client is still connected
 
-## int connectedAnanke ()
+## int isConnected ()
 Checks whether the client is connected to the server.
 
 Returns,
  - false - the client is no longer connected
  - true - the client is still connected
 
-## Ananke setCallback (callback)
+## Ananke setOnMessage (onMessage)
 Sets the message callback function.
 
 Parameters,
- - callback : a pointer to a message callback function called when a message arrives for a subscription created by this client.
+ - onMessage : a pointer to a message onMessage function called when a message arrives for a subscription created by this client.
  
 Returns,
  - Ananke - the client instance, allowing the function to be chained
@@ -152,12 +151,12 @@ Default: undefined (complete packet passed in each write call)
 Sets the timeout when reading from the network. This also applies as the timeout for calls to connect.
 Default: 60 seconds
 
-## Subscription Callback
+## Subscription onMessage
 
 If the client is used to subscribe to topics, a callback function must be provided in the constructor. This function is called when new messages arrive at the client.
-The callback function has the following signature:
+The onMessage function has the following signature:
 
-void callback(const char[] topic, byte* payload, unsigned int length)
+void onMessage(const char[] topic, byte* payload, unsigned int length)
 
 Parameters,
  - topic - the topic the message arrived on (const char[])
