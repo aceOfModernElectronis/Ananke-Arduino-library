@@ -33,7 +33,6 @@ const char* groupId = "....";                 //Ananke group Id
 const char* deviceId = "....";                //Ananke device Id
 const char* username = "....";                //Username of your Ananke account
 const char* pass = "....";                    //Password of your Ananke account
-uint8_t qos = 0;                              //QoS you want, 0 or 1 only
 
 Ananke dev;
 long lastMsg = 0;
@@ -47,7 +46,6 @@ void setup() {
   Serial.begin(115200);                           
   dev.connectWifi( ssid, password );                     // Connecting to the WiFi network
   dev.begin(appId, groupId, deviceId, username, pass );  // Connecting to the Ananke
-  dev.subscribeAnanke(qos);                              // Subscribing to the "SUB" topic of your 
   dev.setOnMessage(onMessage);                           // Making onMessage function alive 
 }
 
@@ -85,7 +83,3 @@ void loop() {
     }
   }
 }
-
-
-
-
