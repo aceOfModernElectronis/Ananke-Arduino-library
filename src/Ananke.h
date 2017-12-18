@@ -29,10 +29,8 @@ private:
 public:
     
 	Ananke();
-    	void connectWifi(const char* ssid, const char* wifiPassword );
+    void connectWifi(const char* ssid, const char* wifiPassword );
 	boolean begin(const char*appId, const char* groupId, const char* deviceId, const char* username, const char* password );
-	boolean subscribeAnanke(uint8_t qos );
-	//boolean unsubscribeAnanke();
 	boolean sendMessage(const char* message );
 	boolean Loop();
 	void stop();
@@ -43,4 +41,3 @@ public:
 
 
 #endif
-
