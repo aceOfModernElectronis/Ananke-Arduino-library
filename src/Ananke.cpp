@@ -48,7 +48,10 @@ boolean Ananke::begin(const char* appId, const char* groupId, const char* device
 	Serial.print("Attempting MQTT connection...");
 		if ((this->client)->connect(deviceId,username,password)) {
 			Serial.println("connected");
-			return true;
+			String str=String(appIdIn)+"/"+String(groupIdIn)+"/"+String(deviceIdIn) +"/"+"SUB";
+			char chr[str.length()+1];
+			str.toCharArray(chr,str.length()+1);
+			return (this->client)->subscribe(chr,1);
 		} else {
 			Serial.print("failed, rc=");
 			Serial.print((this->client)->state());
@@ -58,24 +61,6 @@ boolean Ananke::begin(const char* appId, const char* groupId, const char* device
   }
   
 }
-
-boolean Ananke::subscribeAnanke(uint8_t qos ) {
-	String str=String(appIdIn)+"/"+String(groupIdIn)+"/"+String(deviceIdIn) +"/"+"SUB";
-	Serial.println("Subscribed");
-	Serial.println(str);
-	char chr[str.length()+1];
-	str.toCharArray(chr,str.length()+1);
-	return (this->client)->subscribe(chr,qos);
-	
-}
-
-// boolean Ananke::unsubscribeAnanke() {
-	// String str=String(appIdIn)+"/"+String(groupIdIn)+"/"+String(deviceIdIn) +"/"+"SUB";
-	// char chr[str.length()+1];
-	// str.toCharArray(chr,str.length()+1);
-	// return (this->client)->unsubscribe(chr);
-	
-// }
 
 boolean Ananke::sendMessage(const char* message ) {
 	String str=String(appIdIn)+"/"+String(groupIdIn)+"/"+String(deviceIdIn) +"/"+"PUB";
