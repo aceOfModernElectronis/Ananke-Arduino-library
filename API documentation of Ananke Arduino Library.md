@@ -8,7 +8,7 @@
  - boolean sendMessage(message)
  - boolean subscribeAnanke (qos)
  - boolean unsubscribeAnanke (appID, groupID, deviceID)
- - Boolean Loop ()
+ - boolean Loop ()
  - int isConnected ()
  - Ananke setOnMessage(onMessage);
 ## Other
