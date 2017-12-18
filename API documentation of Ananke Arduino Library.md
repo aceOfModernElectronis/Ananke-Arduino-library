@@ -13,7 +13,6 @@
  - Configuration Options
  - Subscription onMessage
 
-
 ************************************************************************************************************************************
 # Constructors
 
@@ -134,4 +133,4 @@ Parameters (Values for these parameters are given automatically. User just has t
  - payload - the message payload (byte array)
  - length - the length of the message payload (unsigned int)
 
-Internally, the client uses the same buffer for both inbound and outbound messages. After the callback function returns, or if a call to either publish or subscribe is made from within the callback function, the topic and payload values passed to the function will be overwritten. The application should create its own copy of the values if they are required beyond this.
+Internally, the client uses the same buffer for both inbound and outbound messages. After the onMessage function returns, or if a call to either publish or subscribe is made from within the onMessage function, the topic and payload values passed to the function will be overwritten. The application should create its own copy of the values if they are required beyond this.
