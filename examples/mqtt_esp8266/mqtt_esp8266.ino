@@ -42,34 +42,34 @@ int value = 0;
 char relay;
 
 void setup() {
-  pinMode(D8, OUTPUT);                                // Initialize the D8 pin as an output (pin you should connect an LED)
-  pinMode(D7, INPUT);                                 // Initialize the D7 pin as an input  (pin you should connect an LED)
+  pinMode(D8, OUTPUT);                                   // Initialize the D8 pin as an output (pin you should connect an LED)
+  pinMode(D7, INPUT);                                    // Initialize the D7 pin as an input  (pin you should connect an LED)
   Serial.begin(115200);                           
-  dev.connectWifi( ssid, password );                  // Connecting to the WiFi network
-  dev.connectAnanke( deviceId, username, pass );      // Connecting to the Ananke
-  dev.subscribeAnanke(appId, groupId, deviceId, qos );// Subscribing to the "SUB" topic of your 
-  dev.setCallback(callback);                          // Making callback function alive 
+  dev.connectWifi( ssid, password );                     // Connecting to the WiFi network
+  dev.begin(appId, groupId, deviceId, username, pass );  // Connecting to the Ananke
+  dev.subscribeAnanke(qos);                              // Subscribing to the "SUB" topic of your 
+  dev.setOnMessage(onMessage);                           // Making onMessage function alive 
 }
 
-void callback(char* topic, byte* payload, unsigned int length) {  // Topic will be automatically generated 
+void onMessage(char* topic, byte* message, unsigned int length) {  // Topic will be automatically generated 
   Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("] ");
   for (int i = 0; i < length; i++) {
-    Serial.print((char)payload[i]);         // Printing the payload and the topic
+    Serial.print((char)message[i]);         // Printing the messages and the topic
   }
   Serial.println();                   
-  digitalWrite( D8,payload[length-3]-48 );  // If the switch of the mobile app is ON, Make the D8 pin High
+  digitalWrite( D8,message[length-3]-48 );  // If the switch of the mobile app is ON, Make the D8 pin High
 
 }
 
 void loop() {
 
-  if ( !dev.connectedAnanke() ) {
+  if ( !dev.isConnected() ) {
     
-    dev.connectAnanke( deviceId, username, pass );  // If the device has been disconnected from the Ananke, Reconnecting it 
+    dev.begin( appId, groupId, deviceId, username, pass );  // If the device has been disconnected from the Ananke, Reconnecting it 
   }
-  dev.AnankeLoop();
+  dev.Loop();
 
   long now = millis();
   if (now - lastMsg > 500) {                        // Checks the pin D7 for every 500 miliseconds.
@@ -79,11 +79,13 @@ void loop() {
     Serial.print("Publish message: ");
     Serial.println(msg);
     if (digitalRead(D7)){
-      dev.publishAnanke(appId, groupId, deviceId, "{'doorAlarm' : '1'}"); // If the D7 pin is High, Make the Bulb of the mobile app ON 
+      dev.sendMessage( "{'doorAlarm' : '1'}"); // If the D7 pin is High, Make the Bulb of the mobile app ON 
     }else{
-      dev.publishAnanke(appId, groupId, deviceId, "{'doorAlarm' : '0'}"); // If the D7 pin is Low, Make the Bulb of the mobile app OFF
+      dev.sendMessage( "{'doorAlarm' : '0'}"); // If the D7 pin is Low, Make the Bulb of the mobile app OFF
     }
   }
 }
+
+
 
 
