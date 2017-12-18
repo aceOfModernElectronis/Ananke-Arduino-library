@@ -21,6 +21,7 @@ Loop 	KEYWORD2
 stop 	KEYWORD2
 isConnected 	KEYWORD2
 onMessage	KEYWORD2
+setOnMessage	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
