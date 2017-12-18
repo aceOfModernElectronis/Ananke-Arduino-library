@@ -28,7 +28,7 @@ Ananke client(espClient);
 
 ```
 void setup() {
-   client.connectAnanke("<device ID>",”<Username>”,”<Password>”);
+   client.begin("<app ID>","<group ID>","<device ID>",”<Username>”,”<Password>”);
    // client is now ready for use
 }
 ```
@@ -158,7 +158,7 @@ The onMessage function has the following signature:
 
 void onMessage(const char[] topic, byte* payload, unsigned int length)
 
-Parameters,
+Parameters (Values for these parameters are given automatically. User just has to define those in the function),
  - topic - the topic the message arrived on (const char[])
  - payload - the message payload (byte array)
  - length - the length of the message payload (unsigned int)
