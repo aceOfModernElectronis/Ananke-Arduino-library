@@ -4,12 +4,12 @@
  This sketch demonstrates the capabilities of the Ananke library in combination
  with the ESP8266 board/library.
 
- It connects to an MQTT server then:
-  - publishes "hello world" to the topic "outTopic" every two seconds
-  - subscribes to the topic "inTopic", printing out any messages
-    it receives. NB - it assumes the received payloads are strings not binary
-  - If the first character of the topic "inTopic" is an 1, switch ON the ESP Led,
-    else switch it off
+ It connects to an Ananke IOT platform and then:
+  - subscribes to the "SUB" topic of the device, printing out any messages
+    it receives. If the received message is "{'relay' : '1'}" then the D8 pin will be logic HIGH.
+    If the received message is "{'relay' : '0'}" then the D8 pin will be logic LOW. 
+  - If the the D7 pin is logic HIGH then it publishes "{'doorAlarm' : '1'}" to the "PUB" topic every 500 miliseconds.
+    If the the D7 pin is logic LOW then it publishes "{'doorAlarm' : '0'}" to the "PUB" topic every 500 miliseconds.
 
  It will reconnect to the server if the connection is lost using a blocking
  reconnect function.
