@@ -6,8 +6,6 @@
  - boolean begin(appId, groupId, deviceId, username, password)
  - void stop()
  - boolean sendMessage(message)
- - boolean subscribeAnanke (qos)
- - boolean unsubscribeAnanke (appID, groupID, deviceID)
  - boolean Loop ()
  - int isConnected ()
  - Ananke setOnMessage(onMessage);
@@ -40,7 +38,9 @@ Parameters,
 # Functions
 
 ## boolean begin(appId, groupId, deviceId, username, password)
-Connects the device with a username and password specified.
+Connects the device with a username and password specified. QoS value of this connection is 1.
+
+    QoS 1 :- This method guarantees that the message will be transferred successfully to the broker.The broker sends an acknowledgement back to the sender, but in the event that that the acknowledgement is lost the sender won't realise the message has got through, so will send the message again. The client will re-send until it gets the broker's acknowledgement.This means that sending is guaranteed, although the message may reach the broker more than once.
 
 Parameters,
  - appID - the application ID to publish to (const char[])
@@ -66,35 +66,6 @@ Parameters,
 Returns,
  - false - publish failed, either connection lost, or message too large
  - true - publish succeeded
-
-## boolean subscribeAnanke (qos)
-Subscribes to messages published to the specified topic.
-
-Parameters,
- - appID - the application ID to subscribe to (const char[])
- - groupID - the group ID to subscribe to (const char[])
- - deviceID - the device ID of the device to subscribe to (const char[])
- - QoS - Quality of Service you want (only 0 and 1 are possible)
- 
-        QoS 0 :- This is the simplest, lowest-overhead method of sending a message. The client    simply publishes the message, and there is no acknowledgement by the broker.
-        
-        QoS 1 :- This method guarantees that the message will be transferred successfully to the broker.The broker sends an acknowledgement back to the sender, but in the event that that the acknowledgement is lost the sender won't realise the message has got through, so will send the message again. The client will re-send until it gets the broker's acknowledgement.This means that sending is guaranteed, although the message may reach the broker more than once. 
-
-Returns,
- - false - sending the subscribe failed, either connection lost, or message too large.
- - true - sending the subscribe succeeded. The request completes asynchronously.
-
-## boolean unsubscribeAnanke (appID, groupID, deviceID)
-Unsubscribes from the specified topic.
-
-Parameters,
- - appID - the application ID to unsubscribe to (const char[])
- - groupID - the group ID to unsubscribe to (const char[])
- - deviceID - the device ID of the device to unsubscribe to (const char[])
- 
-Returns,
- - false - sending the unsubscribe failed, either connection lost, or message too large.
- - true - sending the unsubscribe succeeded. The request completes asynchronously
 
 ## boolean Loop ()
 This should be called regularly to allow the client to process incoming messages and maintain its connection to the server.
